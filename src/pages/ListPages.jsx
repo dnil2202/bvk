@@ -31,8 +31,8 @@ const ListPages = () => {
             <div>
                 <div className=''>
                     <label className=''>Search</label>
-                    <input className='border border-blue-700 ml-2'placeholder='search something' value={input} onChange={(e)=>setInput(e.target.value)}/>
-                    <button className='bg-teal-200 ml-2 px-2 rounded-md'onClick={goSearch}>go</button>
+                    <input className='border border-blue-700 ml-2 pl-2'placeholder='search something' value={input} onChange={(e)=>setInput(e.target.value)}/>
+                    <button className='bg-teal-200 ml-2 px-2 rounded-md'onClick={goSearch}>Search</button>
                     <button className='bg-red-500 ml-2 px-2 rounded-md text-white'onClick={onReset}>reset</button>
                 </div>
                 <div className='pt-12'>
@@ -40,7 +40,6 @@ const ListPages = () => {
                     inputSearch={input}
                     enter={enter}
                     reset={reset}
-                    
                     />
                 </div>
             </div>

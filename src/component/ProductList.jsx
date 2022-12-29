@@ -36,6 +36,7 @@ const ProductList = ({inputSearch,enter,reset}) => {
     },[])
 
     useEffect(()=>{
+        setTimeout(()=>{
             axios.get(`https://api.thecatapi.com/v1/breeds?limit=10&page=${page}`)
             .then((res)=>{
                 if(res.data.length > 0){
@@ -48,6 +49,7 @@ const ProductList = ({inputSearch,enter,reset}) => {
             }).catch((err)=>{
                 console.log(err)
             })
+        },500)
     },[page,reset])
     // console.log(page)
 
@@ -92,7 +94,7 @@ const ProductList = ({inputSearch,enter,reset}) => {
                     <tr key={i}>
                         <td className='text-start'>{v.name}</td>
                         <td className='text-start pl-10'>{v.origin}</td>
-                        <td><button className='border border-teal-300 px-2 rounded-lg ml-10'onClick={(e)=>setRefImg(e.target.value)} value={v.reference_image_id}>See Detail</button></td>
+                        <td><button className='border border-teal-300 px-2 rounded-lg ml-10 hover:bg-teal-600 hover:text-white'onClick={(e)=>setRefImg(e.target.value)} value={v.reference_image_id}>See Detail</button></td>
                     </tr>
                 )
             })
@@ -105,7 +107,7 @@ const ProductList = ({inputSearch,enter,reset}) => {
             return detailCat.breeds.map((v,i)=>{
                 return (
                     <div key={i}>
-                        <p>{v.name}</p>
+                        <p className='font-bold'>{v.name}</p>
                         <p>Weight : {v.weight.metric}</p>
                         <p>temprament : {v.temperament}</p>
                         <p className='mt-3'>{v.description}</p>
@@ -116,18 +118,17 @@ const ProductList = ({inputSearch,enter,reset}) => {
         }
     }
 
-
 return (
     <div className='grid grid-cols-2'>
-        <div id='dataList' className='border border-red-400 w-2/3 h-80 overflow-y-scroll '>
+        <div id='dataList' className='w-2/3 h-80 overflow-y-scroll '>
             <div className=''>
                 <InfiniteScroll
                 dataLength={dataCat.length}
                 next={getMoreData}
                 hasMore={true}
                 loader={
-                    <div className='flex justify-center'>
-                        loading...
+                    <div className='animate-bounce flex justify-center mt-10'>
+                        <p className='rounded-lg bg-teal-400 px-4 py-1'>Loading</p>
                     </div>
                 }
                 scrollableTarget='dataList'
@@ -149,7 +150,10 @@ return (
         </div>
         <div>
             <div className='grid grid-cols-2 gap-5'>
-                <img src={detailCat.url} className='w-full'/>
+                {
+                    detailCat.length === undefined &&
+                    <img src={detailCat.url} className='w-full h-56 shadow-lg' />
+                }
                 {printDetail()}
             </div>
         </div>
