@@ -10,10 +10,6 @@ const ProductList = ({inputSearch,enter,reset}) => {
     const [page, setPage]=useState(0)
     const [refImg,setRefImg]=useState('')
 
-    console.log(enter)
-    console.log(inputSearch.length)
-    console.log(reset)
-
     useEffect(()=>{
         if(reset){
             setDataCat('')
